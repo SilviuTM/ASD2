@@ -8,13 +8,13 @@
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
 #define ENTER 13
-
+/*
 void CLEAR(void) //Clear screen regardles of host OS
 {
     system("cls||clear");
     return;
 }
-
+*/
 using namespace std;
 
 typedef struct tabel
@@ -22,23 +22,50 @@ typedef struct tabel
     string nume;
     vector<string> campuri; // camp1;camp2;camp3;...
     vector<vector<string>> obiecte; // obiecte[i] e obiectul pe care il vrei
-                                    // obiecte[i][j] e campul pe care il vrei de la obiecte[i]
-}Tabel;
+    // obiecte[i][j] e campul pe care il vrei de la obiecte[i]
+} Tabel;
 vector<Tabel> tabele;
 
-void CreareTabel(/**/){}
-void StergereTabel(/**/){}
-void AfisareTabel(/**/){}
-void AdaugareCamp(/**/){}
-void StergereCamp(/**/){}
-void AdaugareObiect(/**/){}
-void StergereObiect(/**/){}
-void ActualizareObiect(/**/){}
-void CautareObiect(/**/){}
-void AfisareBazaDate(/**/){}
+void CreareTabel(/**/) {}
+void StergereTabel(/**/) {}
+//void AfisareTabel(/**/){}
+void AdaugareCamp(/**/) {}
+void StergereCamp(/**/) {}
+void AdaugareObiect(/**/) {}
+void StergereObiect(/**/) {}
+void ActualizareObiect(/**/) {}
+void CautareObiect(/**/) {}
+void AfisareBazaDate(/**/) {}
 
-void CitireDate(){}
-void ScriereDate(){}
+void CitireDate() {}
+void ScriereDate() {}
+
+
+
+void AfisareTabel()
+{
+    string numeTabel;
+    cout<<"Introduceti numele tabelului pe care doriti sa il afisati:"<<'\n';
+    for(auto&i:tabele)
+        cout<<i.nume<<'\n';
+    cin>>numeTabel;
+    for(auto&i:tabele)
+        if(numeTabel==i.nume)
+        {
+            for(auto&j:i.campuri)
+                cout<<j<<" ";
+            cout<<'\n';
+
+            for(auto&k:i.obiecte)
+            {
+                for(auto&l:k)
+                    cout<<l<<" ";
+                cout<<'\n';
+            }
+        }
+}
+
+
 
 void MeniuPrincipal()
 {
@@ -47,7 +74,7 @@ void MeniuPrincipal()
 
     do
     {
-        CLEAR();
+        //CLEAR();
         if(cursor == 0)  cout << ">>";
         cout << "Creare tabel nou" << endl;
         if(cursor == 1)  cout << ">>";
@@ -127,7 +154,8 @@ void MeniuPrincipal()
 }
 
 /// Creare e functia lui Michelle, o tinem ca referinta la adaugare tabel/camp/obiect
-void creare(){
+void creare()
+{
     /*
     FILE *f;
     int i,j=0;
