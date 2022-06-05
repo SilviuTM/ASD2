@@ -42,13 +42,13 @@ void CautareObiect(/**/){}
 void CitireDate()
 {
     ifstream fin("ASD.txt");
-    string line, word;
+    string line, word, nume;
     int nr;
 
-    while(fin.peek() != fin.eof())
+    while(getline(fin, nume))
     {
         Tabel tabel;
-        getline(fin, tabel.nume);
+        tabel.nume = nume;
         fin >> nr;
 
         // citire campuri
@@ -87,6 +87,7 @@ void CreareTabel()
     int n;
     cin>>n;
     cout<<"Introduceti cum sa se numeasca campurile"<<'\n';
+    cin.get();
     for(int i=1;i<=n;i++)
     {
         string camp;
@@ -96,7 +97,7 @@ void CreareTabel()
     cout<<"Introduceti numarul obiectelor"<<'\n';
     int m;
     cin>>m;
-
+    cin.get();
     for(int i=1;i<=m;i++)
     {
         cout<<"Introduceti atributele pentru noul obiect"<<'\n';
