@@ -2,6 +2,7 @@
 #include<vector>
 #include<string>
 #include<conio.h>
+#include<fstream>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -38,7 +39,7 @@ void CautareObiect(/**/) {}
 void AfisareBazaDate(/**/) {}
 
 void CitireDate() {}
-void ScriereDate() {}
+//void ScriereDate() {}
 
 
 
@@ -64,6 +65,29 @@ void AfisareTabel()
             }
         }
 }
+
+void ScriereDate()
+{
+    ofstream out("ASD.txt");
+    for(auto&tabel:tabele)//fiecare tabel
+    {
+        out<<tabel.nume<<'\n';
+        out<<tabel.obiecte.size()<<'\n';
+        for(auto&camp:tabel.campuri)//fiecare camp
+        {
+            out<<camp<<";";
+        }
+        out<<'\n';
+        for(auto&obiect:tabel.obiecte)//cauta in fiecare obiect
+        {
+            for(auto&atribut:obiect)
+                out<<atribut<<";";
+        out<<'\n';
+         }
+    }
+}
+
+
 
 
 
