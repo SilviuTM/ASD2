@@ -1,9 +1,8 @@
 nume
-3
+2
 camp1;camp2;
 11;12;
 21;22;
-67;99;
 name
 1
 stun seed;
