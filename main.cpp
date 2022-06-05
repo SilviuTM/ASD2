@@ -27,7 +27,7 @@ typedef struct tabel
 vector<Tabel> tabele;
 
 void CreareTabel(/**/) {}
-void StergereTabel(/**/) {}
+//void StergereTabel(/**/) {}
 void AfisareTabel(/**/) {}
 void AdaugareCamp(/**/) {}
 void StergereCamp(/**/) {}
@@ -60,6 +60,16 @@ void AfisareBazaDate()
             cout<<'\n';
         }
     }
+}
+
+
+void StergereTabel() {
+    cout<<"Introduceti numele tabelului care doriti sa fie sters: ";
+    string nume;
+    getline(cin, nume);
+    for(int i = 0; i < tabele.size(); i++)
+        if(tabele[i].nume == nume)
+            tabele.erase(tabele.begin() + i);
 }
 
 void MeniuPrincipal()
