@@ -32,12 +32,12 @@ void CreareTabel(/**/){}
 void StergereTabel(/**/){}
 void AfisareTabel(/**/){}
 void AdaugareCamp(/**/){}
-void StergereCamp(/**/){}
+//void StergereCamp(/**/){}
 void AdaugareObiect(/**/){}
 void StergereObiect(/**/){}
 void ActualizareObiect(/**/){}
 void CautareObiect(/**/){}
-void AfisareBazaDate(/**/){}
+//void AfisareBazaDate(/**/){}
 
 void CitireDate()
 {
@@ -77,6 +77,38 @@ void CitireDate()
 }
 
 void ScriereDate(){}
+
+void AfisareBazaDate()
+{
+
+    string numeTabel;
+    cout<<"Introduceti numele tabelului pe care doriti sa il afisati:"<<'\n';
+    for(auto&i:tabele)
+        cout<<i.nume<<'\n';
+    cin>>numeTabel;
+    for(auto&i:tabele)
+    {
+        for(auto&j:i.campuri)
+            cout<<j<<" ";
+        cout<<'\n';
+        for(auto&k:i.obiecte)
+        {
+            for(auto&l:k)
+                cout<<l<<" ";
+            cout<<'\n';
+        }
+    }
+}
+
+
+void StergereTabel() {
+    cout<<"Introduceti numele tabelului care doriti sa fie sters: ";
+    string nume;
+    getline(cin, nume);
+    for(int i = 0; i < tabele.size(); i++)
+        if(tabele[i].nume == nume)
+            tabele.erase(tabele.begin() + i);
+}
 
 void MeniuPrincipal()
 {
