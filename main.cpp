@@ -28,9 +28,9 @@ typedef struct tabel
 }Tabel;
 vector<Tabel> tabele;
 
-void CreareTabel(/**/){}
-void StergereTabel(/**/){}
-void AfisareTabel(/**/){}
+//void CreareTabel(/**/){}
+//void StergereTabel(/**/){}
+//void AfisareTabel(/**/){}
 void AdaugareCamp(/**/){}
 //void StergereCamp(/**/){}
 void AdaugareObiect(/**/){}
@@ -76,8 +76,88 @@ void CitireDate()
     }
 }
 
-void ScriereDate(){}
+void CreareTabel()
+{
+    Tabel tabel;
+    string nume;
+    cout<<"Introduceti numele tabelului"<<'\n';
+    getline(cin,nume);
+    tabel.nume=nume;
+    cout<<"Introduceti cate campuri doriti sa aiba tabelul"<<'\n';
+    int n;
+    cin>>n;
+    cout<<"Introduceti cum sa se numeasca campurile"<<'\n';
+    for(int i=1;i<=n;i++)
+    {
+        string camp;
+        getline(cin,camp);
+        tabel.campuri.push_back(camp);
+    }
+    cout<<"Introduceti numarul obiectelor"<<'\n';
+    int m;
+    cin>>m;
 
+    for(int i=1;i<=m;i++)
+    {
+        cout<<"Introduceti atributele pentru noul obiect"<<'\n';
+        vector<string> obiect;
+        for(int j=1;j<=n;j++)
+        {
+            cout<<tabel.campuri[j-1]<<": ";
+            string atribut;
+            getline(cin,atribut);
+            cout<<'\n';
+           obiect.push_back(atribut);
+        }
+      tabel.obiecte.push_back(obiect);
+    }
+    tabele.push_back(tabel);
+}
+
+
+void AfisareTabel()
+{
+    string numeTabel;
+    cout<<"Introduceti numele tabelului pe care doriti sa il afisati:"<<'\n';
+    for(auto&i:tabele)
+        cout<<i.nume<<'\n';
+    getline(cin,numeTabel);
+    for(auto&i:tabele)
+        if(numeTabel==i.nume)
+        {
+            for(auto&j:i.campuri)
+                cout<<j<<" ";
+            cout<<'\n';
+
+            for(auto&k:i.obiecte)
+            {
+                for(auto&l:k)
+                    cout<<l<<" ";
+                cout<<'\n';
+            }
+        }
+}
+
+void ScriereDate()
+{
+    ofstream out("ASD.txt");
+    for(auto&tabel:tabele)//fiecare tabel
+    {
+        out<<tabel.nume<<'\n';
+        out<<tabel.obiecte.size()<<'\n';
+        for(auto&camp:tabel.campuri)//fiecare camp
+        {
+            out<<camp<<";";
+        }
+        out<<'\n';
+        for(auto&obiect:tabel.obiecte)//cauta in fiecare obiect
+        {
+            for(auto&atribut:obiect)
+                out<<atribut<<";";
+        out<<'\n';
+         }
+    }
+}
 void AfisareBazaDate()
 {
 
