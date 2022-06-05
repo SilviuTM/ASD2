@@ -31,90 +31,10 @@ vector<Tabel> tabele;
 //void CreareTabel(/**/){}
 //void StergereTabel(/**/){}
 //void AfisareTabel(/**/){}
-
-void StergereCamp(/**/){
-string sterg,numele;
-cout<<"Tablouri:\n";
-for(int i=0;i<tabele.size();i++)
-    {
-        cout<<tabele.at(i).nume<<'\n';
-    }
-cout<<"Din ce tablou doresti sa stergi: ";
-getline(cin, numele);
-cout<<"Campuri:\n";
-for(int i=0;i<tabele.size();i++)
-{
- if(tabele[i].nume==numele)
- {
-     for(int j=0;j<tabele[i].campuri.size();j++)
-     {
-         cout<<tabele[i].campuri[j]<<endl;
-     }
- }
-}
-cout<<"Ce camp doriti sa stergeti: ";
-getline(cin, sterg);
-for(int i=0;i<tabele.size();i++)
-{
- if(tabele[i].nume==numele)
- {
-
-     for(int j=0;j<tabele[i].campuri.size();j++)
-     {
-         if(tabele[i].campuri[j]==sterg)
-         {
-             tabele[i].campuri.erase(tabele[i].campuri.begin() + j);
-             for(int l=0;l<tabele[i].obiecte.size();l++)
-             {
-                 tabele[i].obiecte[l].erase(tabele[i].obiecte[l].begin() + j);
-             }
-         }
-
-     }
-
-     }
- }
-}
-void AdaugareObiect(/**/){}
-void StergereObiect(/**/){
-string numele;
-cout<<"Tablouri:\n";
-for(int i=0;i<tabele.size();i++)
-    {
-        cout<<tabele.at(i).nume<<'\n';
-    }
-cout<<"Din ce tablou doresti sa stergi: ";
-getline(cin, numele);
-cout<<"obiecte:\n";
-for(int i=0;i<tabele.size();i++)
-{
- if(tabele[i].nume==numele)
- {
-     for(int j=0;j<tabele[i].obiecte.size();j++)
-     {
-         for(int l=0;l<tabele[i].obiecte[j].size();l++)
-         {cout<<tabele[i].obiecte[j][l]<<" ";}
-         cout<<endl;
-     }
- }
-}
-cout<<"Introduceti linia obiectului pe care il vreti sa-l stergeti: ";
-int linie;
-cin>>linie;
-for(int i=0;i<tabele.size();i++)
-{
- if(tabele[i].nume==numele)
- {
-     for(int j=0;j<tabele[i].obiecte.size();j++)
-     {
-         if(j==linie)
-         {
-          tabele[i].obiecte.erase(tabele[i].obiecte.begin() + j);
-         }
-     }
- }
-}
-}
+void AdaugareCamp(/**/){}
+void StergereCamp(/**/){}
+//void AdaugareObiect(/**/){}
+//void StergereObiect(/**/){}
 void ActualizareObiect(/**/){}
 void CautareObiect(/**/){}
 //void AfisareBazaDate(/**/){}
@@ -159,6 +79,34 @@ void CitireDate()
     fin.close();
 }
 
+void AdaugareObiect()
+{
+    cout<<"Introduceti numele tabelului in care doriti sa adaugati un nou obiect"<<'\n';
+    for(auto&i:tabele)
+        cout<<i.nume<<'\n';
+    string nume;
+    getline(cin,nume);
+    for(auto&tabel:tabele)
+    {
+        if(nume==tabel.nume)
+        {
+            int nrcamp=tabel.campuri.size();
+            vector<string> obiect;
+            for(int j=1; j<=nrcamp; j++)
+            {
+                cout<<tabel.campuri[j-1]<<": ";
+                string atribut;
+                getline(cin,atribut);
+                cout<<'\n';
+                obiect.push_back(atribut);
+            }
+            tabel.obiecte.push_back(obiect);
+        }
+    }
+
+}
+
+
 void CreareTabel()
 {
     Tabel tabel;
@@ -197,32 +145,6 @@ void CreareTabel()
     }
     tabele.push_back(tabel);
 }
-void AdaugareCamp(/**/){
-string adaug,numele;
-cout<<"Ce camp doresti sa adaugi: ";
-getline(cin, adaug);
-cout<<"Tablourile:\n";
-for(int i=0;i<tabele.size();i++)
-    {
-        cout<<tabele.at(i).nume<<'\n';
-    }
-cout<<"In ce tablou doresti sa adaugi campul din cele afisate de mai sus: ";
-getline(cin, numele);
-for(int i=0;i<tabele.size();i++)
-{
- if(tabele[i].nume==numele)
- {
-     tabele[i].campuri.push_back(adaug);
-     for(int j=0;j<tabele[i].obiecte.size();j++)
-     {
-         string adaug2;
-         cout<<"Introdu informatia pentru campul adaugat al obiectului "<<j<<" ";
-         getline(cin, adaug2);
-         tabele[i].obiecte[j].push_back(adaug2);
-     }
-     }
- }
- }
 
 void AfisareTabel()
 {
@@ -285,6 +207,7 @@ void AfisareBazaDate()
         }
     }
 }
+
 
 void StergereTabel() {
     cout<<"Introduceti numele tabelului pe care doriti sa il stergeti:"<<'\n';
