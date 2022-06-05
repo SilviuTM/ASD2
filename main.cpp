@@ -1,4 +1,6 @@
 #include<iostream>
+#include<fstream>
+#include<sstream>
 #include<vector>
 #include<string>
 #include<conio.h>
@@ -37,7 +39,43 @@ void ActualizareObiect(/**/){}
 void CautareObiect(/**/){}
 void AfisareBazaDate(/**/){}
 
-void CitireDate(){}
+void CitireDate()
+{
+    ifstream fin("ASD.txt");
+    string line, word;
+    int nr;
+
+    while(fin.peek() != fin.eof())
+    {
+        Tabel tabel;
+        getline(fin, tabel.nume);
+        fin >> nr;
+
+        // citire campuri
+        getline(fin, line);
+        stringstream str(line);
+        while(getline(str, word, ';'))
+            tabel.campuri.push_back(word);
+
+        // citire obiecte
+        while(nr != 0)
+        {
+            nr--;
+
+            getline(fin, line);
+            vector<string> aux;
+            stringstream str(line);
+            while(getline(str, word, ';'))
+                aux.push_back(word);
+
+            tabel.obiecte.push_back(aux);
+        }
+
+        // adaugare tabel
+        tabele.push_back(tabel);
+    }
+}
+
 void ScriereDate(){}
 
 void MeniuPrincipal()
