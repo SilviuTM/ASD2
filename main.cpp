@@ -32,7 +32,7 @@ vector<Tabel> tabele;
 //void StergereTabel(/**/){}
 //void AfisareTabel(/**/){}
 void AdaugareCamp(/**/){}
-//void StergereCamp(/**/){}
+void StergereCamp(/**/){}
 void AdaugareObiect(/**/){}
 void StergereObiect(/**/){}
 void ActualizareObiect(/**/){}
