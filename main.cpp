@@ -38,7 +38,7 @@ void StergereObiect(/**/){}
 void ActualizareObiect(/**/){}
 void CautareObiect(/**/){}
 //void AfisareBazaDate(/**/){}
-
+//void CitireDate()
 void CitireDate()
 {
     ifstream fin("ASD.txt");
