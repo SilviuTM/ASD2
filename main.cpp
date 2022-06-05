@@ -1,4 +1,6 @@
 #include<iostream>
+#include<fstream>
+#include<sstream>
 #include<vector>
 #include<string>
 #include<conio.h>
@@ -22,23 +24,59 @@ typedef struct tabel
     string nume;
     vector<string> campuri; // camp1;camp2;camp3;...
     vector<vector<string>> obiecte; // obiecte[i] e obiectul pe care il vrei
-    // obiecte[i][j] e campul pe care il vrei de la obiecte[i]
-} Tabel;
+                                    // obiecte[i][j] e campul pe care il vrei de la obiecte[i]
+}Tabel;
 vector<Tabel> tabele;
 
-void CreareTabel(/**/) {}
-//void StergereTabel(/**/) {}
-void AfisareTabel(/**/) {}
-void AdaugareCamp(/**/) {}
-void StergereCamp(/**/) {}
-void AdaugareObiect(/**/) {}
-void StergereObiect(/**/) {}
-void ActualizareObiect(/**/) {}
-void CautareObiect(/**/) {}
+void CreareTabel(/**/){}
+void StergereTabel(/**/){}
+void AfisareTabel(/**/){}
+void AdaugareCamp(/**/){}
+//void StergereCamp(/**/){}
+void AdaugareObiect(/**/){}
+void StergereObiect(/**/){}
+void ActualizareObiect(/**/){}
+void CautareObiect(/**/){}
 //void AfisareBazaDate(/**/){}
 
-void CitireDate() {}
-void ScriereDate() {}
+void CitireDate()
+{
+    ifstream fin("ASD.txt");
+    string line, word;
+    int nr;
+
+    while(fin.peek() != fin.eof())
+    {
+        Tabel tabel;
+        getline(fin, tabel.nume);
+        fin >> nr;
+
+        // citire campuri
+        getline(fin, line);
+        stringstream str(line);
+        while(getline(str, word, ';'))
+            tabel.campuri.push_back(word);
+
+        // citire obiecte
+        while(nr != 0)
+        {
+            nr--;
+
+            getline(fin, line);
+            vector<string> aux;
+            stringstream str(line);
+            while(getline(str, word, ';'))
+                aux.push_back(word);
+
+            tabel.obiecte.push_back(aux);
+        }
+
+        // adaugare tabel
+        tabele.push_back(tabel);
+    }
+}
+
+void ScriereDate(){}
 
 void AfisareBazaDate()
 {
@@ -159,8 +197,7 @@ void MeniuPrincipal()
 }
 
 /// Creare e functia lui Michelle, o tinem ca referinta la adaugare tabel/camp/obiect
-void creare()
-{
+void creare(){
     /*
     FILE *f;
     int i,j=0;
