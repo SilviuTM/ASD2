@@ -1,6 +1,9 @@
-18 cm
-3
-mama;ta;
-femeie;barbat;
-fetita;baietel;
-o;sug;
+nume
+2
+camp1;camp2;
+11;12;
+21;22;
+name
+1
+stun seed;
+24 hour cinderella;

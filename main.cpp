@@ -50,6 +50,7 @@ void CitireDate()
         Tabel tabel;
         tabel.nume = nume;
         fin >> nr;
+        fin.ignore();
 
         // citire campuri
         getline(fin, line);
@@ -74,6 +75,8 @@ void CitireDate()
         // adaugare tabel
         tabele.push_back(tabel);
     }
+
+    fin.close();
 }
 
 void CreareTabel()
@@ -114,7 +117,6 @@ void CreareTabel()
     }
     tabele.push_back(tabel);
 }
-
 
 void AfisareTabel()
 {
@@ -158,15 +160,12 @@ void ScriereDate()
         out<<'\n';
          }
     }
+
+    out.close();
 }
+
 void AfisareBazaDate()
 {
-
-    string numeTabel;
-    cout<<"Introduceti numele tabelului pe care doriti sa il afisati:"<<'\n';
-    for(auto&i:tabele)
-        cout<<i.nume<<'\n';
-    cin>>numeTabel;
     for(auto&i:tabele)
     {
         for(auto&j:i.campuri)
@@ -181,12 +180,14 @@ void AfisareBazaDate()
     }
 }
 
-
 void StergereTabel() {
-    cout<<"Introduceti numele tabelului care doriti sa fie sters: ";
+    cout<<"Introduceti numele tabelului pe care doriti sa il stergeti:"<<'\n';
+    for(auto&i:tabele)
+        cout<<i.nume<<'\n';
+
     string nume;
     getline(cin, nume);
-    for(int i = 0; i < tabele.size(); i++)
+    for(int i = 0; i < (int)tabele.size(); i++)
         if(tabele[i].nume == nume)
             tabele.erase(tabele.begin() + i);
 }
@@ -222,6 +223,7 @@ void MeniuPrincipal()
         if(cursor == 10) cout << ">>";
         cout << "Iesire" << endl;
 
+        fflush(stdin);
         c = getch();
         if(c == KEY_UP)
         {
@@ -240,33 +242,63 @@ void MeniuPrincipal()
             {
             case 0:
                 CreareTabel();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 1:
                 StergereTabel();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 2:
                 AfisareTabel();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 3:
                 AdaugareCamp();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 4:
                 StergereCamp();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 5:
                 AdaugareObiect();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 6:
                 StergereObiect();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 7:
                 ActualizareObiect();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 8:
                 CautareObiect();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 9:
                 AfisareBazaDate();
+                fflush(stdin);
+                cout << "Apasa Enter pentru a continua!";
+                getch();
                 break;
             case 10:
                 return;
