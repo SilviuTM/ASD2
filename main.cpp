@@ -26,6 +26,179 @@ typedef struct tabel
 } Tabel;
 std::vector<Tabel> tabele;
 
+void CreareTabel()
+{
+    Tabel tabel;
+    std::string nume;
+    std::cout << "Introduceti numele tabelului" << '\n';
+    std::getline(std::cin, nume);
+    tabel.nume = nume;
+    std::cout << "Introduceti cate campuri doriti sa aiba tabelul" << '\n';
+    int n;
+    std::cin >> n;
+    std::cout << "Introduceti cum sa se numeasca campurile" << '\n';
+    std::cin.get();
+    for (int i = 1; i <= n; i++)
+    {
+        std::string camp;
+        std::getline(std::cin, camp);
+        tabel.campuri.push_back(camp);
+    }
+    std::cout << "Introduceti numarul obiectelor" << '\n';
+    int m;
+    std::cin >> m;
+    std::cin.get();
+    for (int i = 1; i <= m; i++)
+    {
+        std::cout << "Introduceti atributele pentru noul obiect" << '\n';
+        std::vector<std::string> obiect;
+        for (int j = 1; j <= n; j++)
+        {
+            std::cout << tabel.campuri[j - 1] << ": ";
+            std::string atribut;
+            std::getline(std::cin, atribut);
+            std::cout << '\n';
+            obiect.push_back(atribut);
+        }
+        tabel.obiecte.push_back(obiect);
+    }
+    tabele.push_back(tabel);
+}
+
+void ModificareNumeTabel()
+{
+    std::string numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        std::cout << tabele.at(i).nume << '\n';
+    }
+    std::cout << "Ce tablou doriti sa modificati: ";
+    std::getline(std::cin, numele);
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            std::getline(std::cin, tabele[i].nume);
+            return;
+        }
+    }
+}
+
+void StergereTabel()
+{
+    std::cout << "Introduceti numele tabelului pe care doriti sa il stergeti:" << '\n';
+    for (auto &i : tabele)
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
+
+    std::string nume;
+    std::getline(std::cin, nume);
+    for (int i = 0; i < (int)tabele.size(); i++)
+        if (tabele[i].nume == nume)
+            tabele.erase(tabele.begin() + i);
+}
+
+void AfisareTabel()
+{
+    std::string numeTabel;
+    std::cout << "Introduceti numele tabelului pe care doriti sa il afisati:" << '\n';
+    for (auto &i : tabele)
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
+    std::getline(std::cin, numeTabel);
+    for (auto &i : tabele)
+        if (numeTabel == i.nume)
+        {
+            for (auto &j : i.campuri)
+                std::cout << "\033[1;36m" << j << "\033[0m" << " ";
+            std::cout << '\n';
+
+            for (auto &k : i.obiecte)
+            {
+                for (auto &l : k)
+                    std::cout << "\033[1;35m" << l << "\033[0m" << " ";
+                std::cout << '\n';
+            }
+        }
+}
+
+void AdaugareCamp(/**/)
+{
+    std::string adaug, numele;
+    std::cout << "Ce camp doresti sa adaugi: ";
+    std::getline(std::cin, adaug);
+    std::cout << "Tablourile:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        std::cout << "\033[1;34m" << tabele.at(i).nume << "\033[0m" << '\n';
+    }
+    std::cout << "In ce tablou doresti sa adaugi campul din cele afisate de mai sus: ";
+    std::getline(std::cin, numele);
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            tabele[i].campuri.push_back(adaug);
+            for (int j = 0; j < tabele[i].obiecte.size(); j++)
+            {
+                std::string adaug2;
+                std::cout << "Introdu informatia pentru campul adaugat al obiectului " << "\033[1;36m" << j << "\033[0m" << " ";
+                std::getline(std::cin, adaug2);
+                tabele[i].obiecte[j].push_back(adaug2);
+            }
+        }
+    }
+}
+
+void ModificareNumeCamp()
+{
+    std::string sterg, numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        std::cout << tabele.at(i).nume << '\n';
+    }
+    std::cout << "Din ce tablou doresti sa modificati: ";
+    std::getline(std::cin, numele);
+    std::cout << "Campuri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].campuri.size(); j++)
+            {
+                std::cout << tabele[i].campuri[j] << std::endl;
+            }
+        }
+    }
+    std::cout << "Ce camp doriti sa modificati: ";
+    std::getline(std::cin, sterg);
+    for (int i = 0; i < tabele.size(); i++)
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].campuri.size(); j++)
+            {
+                if (tabele[i].campuri[j] == sterg)
+                    std::cout << "\nIntroduceti noul nume: ";
+                std::getline(std::cin, tabele[i].campuri[j]);
+            }
+        }
+}
+
+void AfisareCampuri(/**/)
+{
+    std::string numeTabel;
+    std::cout << "Introduceti numele tabelului al carui campuri doriti sa le afisati:" << '\n';
+    for (auto &i : tabele)
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
+    std::getline(std::cin, numeTabel);
+    for (auto &i : tabele)
+        if (numeTabel == i.nume)
+        {
+            for (auto &j : i.campuri)
+                std::cout << "- " << "\033[1;36m" << j << "\033[0m" << "\n";
+        }
+}
+
 void StergereCamp(/**/)
 {
     std::string sterg, numele;
@@ -64,6 +237,32 @@ void StergereCamp(/**/)
                     }
                 }
             }
+        }
+    }
+}
+
+void AdaugareObiect()
+{
+    std::cout << "Introduceti numele tabelului in care doriti sa adaugati un nou obiect" << '\n';
+    for (auto &i : tabele)
+        std::cout << i.nume << '\n';
+    std::string nume;
+    std::getline(std::cin, nume);
+    for (auto &tabel : tabele)
+    {
+        if (nume == tabel.nume)
+        {
+            int nrcamp = tabel.campuri.size();
+            std::vector<std::string> obiect;
+            for (int j = 1; j <= nrcamp; j++)
+            {
+                std::cout << tabel.campuri[j - 1] << ": ";
+                std::string atribut;
+                std::getline(std::cin, atribut);
+                std::cout << '\n';
+                obiect.push_back(atribut);
+            }
+            tabel.obiecte.push_back(obiect);
         }
     }
 }
@@ -284,6 +483,23 @@ void CautareObiect(/**/)
         }
 }
 
+void AfisareBazaDate()
+{
+    for (auto &i : tabele)
+    {
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
+        for (auto &j : i.campuri)
+            std::cout << "\033[1;36m" << std::setw(20) << j << std::setw(0) << "\033[0m" << " | ";
+        std::cout << '\n';
+        for (auto &k : i.obiecte)
+        {
+            for (auto &l : k)
+                std::cout << "\033[1;35m" << std::setw(20) << l << std::setw(0) << "\033[0m" << " | ";
+            std::cout << '\n';
+        }
+    }
+}
+
 void CitireDate()
 {
     std::ifstream fin("ASD.txt");
@@ -324,192 +540,6 @@ void CitireDate()
     fin.close();
 }
 
-void AdaugareObiect()
-{
-    std::cout << "Introduceti numele tabelului in care doriti sa adaugati un nou obiect" << '\n';
-    for (auto &i : tabele)
-        std::cout << i.nume << '\n';
-    std::string nume;
-    std::getline(std::cin, nume);
-    for (auto &tabel : tabele)
-    {
-        if (nume == tabel.nume)
-        {
-            int nrcamp = tabel.campuri.size();
-            std::vector<std::string> obiect;
-            for (int j = 1; j <= nrcamp; j++)
-            {
-                std::cout << tabel.campuri[j - 1] << ": ";
-                std::string atribut;
-                std::getline(std::cin, atribut);
-                std::cout << '\n';
-                obiect.push_back(atribut);
-            }
-            tabel.obiecte.push_back(obiect);
-        }
-    }
-}
-
-void CreareTabel()
-{
-    Tabel tabel;
-    std::string nume;
-    std::cout << "Introduceti numele tabelului" << '\n';
-    std::getline(std::cin, nume);
-    tabel.nume = nume;
-    std::cout << "Introduceti cate campuri doriti sa aiba tabelul" << '\n';
-    int n;
-    std::cin >> n;
-    std::cout << "Introduceti cum sa se numeasca campurile" << '\n';
-    std::cin.get();
-    for (int i = 1; i <= n; i++)
-    {
-        std::string camp;
-        std::getline(std::cin, camp);
-        tabel.campuri.push_back(camp);
-    }
-    std::cout << "Introduceti numarul obiectelor" << '\n';
-    int m;
-    std::cin >> m;
-    std::cin.get();
-    for (int i = 1; i <= m; i++)
-    {
-        std::cout << "Introduceti atributele pentru noul obiect" << '\n';
-        std::vector<std::string> obiect;
-        for (int j = 1; j <= n; j++)
-        {
-            std::cout << tabel.campuri[j - 1] << ": ";
-            std::string atribut;
-            std::getline(std::cin, atribut);
-            std::cout << '\n';
-            obiect.push_back(atribut);
-        }
-        tabel.obiecte.push_back(obiect);
-    }
-    tabele.push_back(tabel);
-}
-
-void ModificareNumeTabel()
-{
-    std::string numele;
-    std::cout << "Tablouri:\n";
-    for (int i = 0; i < tabele.size(); i++)
-    {
-        std::cout << tabele.at(i).nume << '\n';
-    }
-    std::cout << "Ce tablou doriti sa modificati: ";
-    std::getline(std::cin, numele);
-    for (int i = 0; i < tabele.size(); i++)
-    {
-        if (tabele[i].nume == numele)
-        {
-            std::getline(std::cin, tabele[i].nume);
-            return;
-        }
-    }
-}
-
-void AdaugareCamp(/**/)
-{
-    std::string adaug, numele;
-    std::cout << "Ce camp doresti sa adaugi: ";
-    std::getline(std::cin, adaug);
-    std::cout << "Tablourile:\n";
-    for (int i = 0; i < tabele.size(); i++)
-    {
-        std::cout << "\033[1;34m" << tabele.at(i).nume << "\033[0m" << '\n';
-    }
-    std::cout << "In ce tablou doresti sa adaugi campul din cele afisate de mai sus: ";
-    std::getline(std::cin, numele);
-    for (int i = 0; i < tabele.size(); i++)
-    {
-        if (tabele[i].nume == numele)
-        {
-            tabele[i].campuri.push_back(adaug);
-            for (int j = 0; j < tabele[i].obiecte.size(); j++)
-            {
-                std::string adaug2;
-                std::cout << "Introdu informatia pentru campul adaugat al obiectului " << "\033[1;36m" << j << "\033[0m" << " ";
-                std::getline(std::cin, adaug2);
-                tabele[i].obiecte[j].push_back(adaug2);
-            }
-        }
-    }
-}
-
-void AfisareCampuri(/**/)
-{
-    std::string numeTabel;
-    std::cout << "Introduceti numele tabelului al carui campuri doriti sa le afisati:" << '\n';
-    for (auto &i : tabele)
-        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
-    std::getline(std::cin, numeTabel);
-    for (auto &i : tabele)
-        if (numeTabel == i.nume)
-        {
-            for (auto &j : i.campuri)
-                std::cout << "- " << "\033[1;36m" << j << "\033[0m" << "\n";
-        }
-}
-
-void ModificareNumeCamp()
-{
-    std::string sterg, numele;
-    std::cout << "Tablouri:\n";
-    for (int i = 0; i < tabele.size(); i++)
-    {
-        std::cout << tabele.at(i).nume << '\n';
-    }
-    std::cout << "Din ce tablou doresti sa modificati: ";
-    std::getline(std::cin, numele);
-    std::cout << "Campuri:\n";
-    for (int i = 0; i < tabele.size(); i++)
-    {
-        if (tabele[i].nume == numele)
-        {
-            for (int j = 0; j < tabele[i].campuri.size(); j++)
-            {
-                std::cout << tabele[i].campuri[j] << std::endl;
-            }
-        }
-    }
-    std::cout << "Ce camp doriti sa modificati: ";
-    std::getline(std::cin, sterg);
-    for (int i = 0; i < tabele.size(); i++)
-        if (tabele[i].nume == numele)
-        {
-            for (int j = 0; j < tabele[i].campuri.size(); j++)
-            {
-                if (tabele[i].campuri[j] == sterg)
-                    std::cout << "\nIntroduceti noul nume: ";
-                std::getline(std::cin, tabele[i].campuri[j]);
-            }
-        }
-}
-
-void AfisareTabel()
-{
-    std::string numeTabel;
-    std::cout << "Introduceti numele tabelului pe care doriti sa il afisati:" << '\n';
-    for (auto &i : tabele)
-        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
-    std::getline(std::cin, numeTabel);
-    for (auto &i : tabele)
-        if (numeTabel == i.nume)
-        {
-            for (auto &j : i.campuri)
-                std::cout << "\033[1;36m" << j << "\033[0m" << " ";
-            std::cout << '\n';
-
-            for (auto &k : i.obiecte)
-            {
-                for (auto &l : k)
-                    std::cout << "\033[1;35m" << l << "\033[0m" << " ";
-                std::cout << '\n';
-            }
-        }
-}
-
 void ScriereDate()
 {
     std::ofstream out("ASD.txt");
@@ -531,36 +561,6 @@ void ScriereDate()
     }
 
     out.close();
-}
-
-void AfisareBazaDate()
-{
-    for (auto &i : tabele)
-    {
-        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
-        for (auto &j : i.campuri)
-            std::cout << "\033[1;36m" << std::setw(20) << j << std::setw(0) << "\033[0m" << " | ";
-        std::cout << '\n';
-        for (auto &k : i.obiecte)
-        {
-            for (auto &l : k)
-                std::cout << "\033[1;35m" << std::setw(20) << l << std::setw(0) << "\033[0m" << " | ";
-            std::cout << '\n';
-        }
-    }
-}
-
-void StergereTabel()
-{
-    std::cout << "Introduceti numele tabelului pe care doriti sa il stergeti:" << '\n';
-    for (auto &i : tabele)
-        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
-
-    std::string nume;
-    std::getline(std::cin, nume);
-    for (int i = 0; i < (int)tabele.size(); i++)
-        if (tabele[i].nume == nume)
-            tabele.erase(tabele.begin() + i);
 }
 
 void MeniuPrincipal()
