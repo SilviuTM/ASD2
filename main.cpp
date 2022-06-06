@@ -164,6 +164,7 @@ void ActualizareObiect(/**/) {
             }
         }
 }
+
 void CautareObiect(/**/)
 {
     std::string numele;
@@ -383,6 +384,26 @@ void CreareTabel()
         tabel.obiecte.push_back(obiect);
     }
     tabele.push_back(tabel);
+}
+
+void ModificareNumeTabel()
+{
+    std::string numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        std::cout << tabele.at(i).nume << '\n';
+    }
+    std::cout << "Ce tablou doriti sa modificati: ";
+    std::getline(std::cin, numele);
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            std::getline(std::cin, tabele[i].nume);
+            return;
+        }
+    }
 }
 
 void AdaugareCamp(/**/)
