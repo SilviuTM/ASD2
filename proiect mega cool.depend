@@ -11,3 +11,13 @@
 	<string>
 	<conio.h>
 
+1654500468 source:c:\users\smara\downloads\asd2-main\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+	<string>
+	<conio.h>
+	<iomanip>
+	<string.h>
+
