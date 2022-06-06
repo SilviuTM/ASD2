@@ -362,6 +362,40 @@ void AdaugareCamp(/**/)
     }
 }
 
+void ModificareNumeCamp()
+{
+    std::string sterg, numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        std::cout << tabele.at(i).nume << '\n';
+    }
+    std::cout << "Din ce tablou doresti sa modificati: ";
+    std::getline(std::cin, numele);
+    std::cout << "Campuri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].campuri.size(); j++)
+            {
+                std::cout << tabele[i].campuri[j] << std::endl;
+            }
+        }
+    }
+    std::cout << "Ce camp doriti sa modificati: ";
+    std::getline(std::cin, sterg);
+    for (int i = 0; i < tabele.size(); i++)
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].campuri.size(); j++)
+            {
+                if (tabele[i].campuri[j] == sterg)
+                    std::cout << "\nIntroduceti noul nume: "; std::getline(std::cin, tabele[i].campuri[j]);
+            }
+        }
+}
+
 void AfisareTabel()
 {
     std::string numeTabel;
@@ -435,6 +469,58 @@ void StergereTabel()
     for (int i = 0; i < (int)tabele.size(); i++)
         if (tabele[i].nume == nume)
             tabele.erase(tabele.begin() + i);
+}
+
+void ActualizareObiect(/**/) {
+    std::string numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+        std::cout << tabele.at(i).nume << '\n';
+
+    std::cout << "Din ce tablou doresti sa actualizezi: ";
+    std::getline(std::cin, numele);
+    std::cout << "obiecte:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].obiecte.size(); j++)
+            {
+                for (int l = 0; l < tabele[i].obiecte[j].size(); l++)
+                {
+                    std::cout << tabele[i].obiecte[j][l] << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+    }
+    std::cout << "Introduceti linia si coloana obiectului pe care il vreti sa-l actualizezi: ";
+    int linie, coloana, i;
+    std::cin >> linie >> coloana;
+    linie -= 1;
+    coloana -= 1;
+    for (i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+            break;
+    }
+    for (int j = 0; j < tabele[i].obiecte.size(); j++)
+        {
+            if (j == linie)
+            {
+                for(int k = 0; k < tabele[i].obiecte[j].size(); k++)
+                {
+                    if(k == coloana)
+                    {
+                        std::cout << "Introduceti noul obiect [" << tabele[i].obiecte[j][k] << "]: ";
+                        std::string nou;
+                        std::fflush(stdin);
+                        std::getline(std::cin, nou);
+                        tabele[i].obiecte[j][k] = nou;
+                    }
+                }
+            }
+        }
 }
 
 void MeniuPrincipal()
