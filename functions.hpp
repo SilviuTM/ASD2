@@ -117,7 +117,56 @@ void StergereObiect(/*delete this*/)
         }
     }
 }
-void ActualizareObiect(/**/) {}
+void ActualizareObiect(/**/) {
+    string numele;
+    cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        cout << tabele.at(i).nume << '\n';
+    }
+    cout << "Din ce tablou doresti sa actualizezi: ";
+    getline(cin, numele);
+    cout << "obiecte:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].obiecte.size(); j++)
+            {
+                for (int l = 0; l < tabele[i].obiecte[j].size(); l++)
+                {
+                    cout << tabele[i].obiecte[j][l] << " ";
+                }
+                cout << endl;
+            }
+        }
+    }
+    cout << "Introduceti linia si coloana obiectului pe care il vreti sa-l actualizezi: ";
+    int linie, coloana, i;
+    cin >> linie >> coloana;
+    for (i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+            break;
+    }
+    for (int j = 0; j < tabele[i].obiecte.size(); j++)
+        {
+            if (j == linie)
+            {
+                for(int k = 0; k < tabele[i].obiecte[j].size(); k++)
+                {
+                    if(k == coloana)
+                    {
+                        cout << "Introduceti noul obiect [" << tabele[i].obiecte[j][k] << "]: ";
+                        string nou;
+                        fflush(stdin);
+                        getline(cin, nou);
+                        tabele[i].obiecte[j][k] = nou;
+                    }
+                }
+            }
+        }
+}
 void CautareObiect(/**/) {}
 // void AfisareBazaDate(/**/){}
 // void CitireDate()
@@ -303,13 +352,14 @@ void AfisareBazaDate()
 {
     for (auto &i : tabele)
     {
+        cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
         for (auto &j : i.campuri)
-            cout << j << " ";
+            cout << "\033[1;36m" << j << "\033[0m" << " ";
         cout << '\n';
         for (auto &k : i.obiecte)
         {
             for (auto &l : k)
-                cout << l << " ";
+                cout << "\033[1;35m" << l << "\033[0m" << " ";
             cout << '\n';
         }
     }
@@ -452,5 +502,5 @@ void MeniuPrincipal()
             }
 
         ScriereDate();
-    } while (1);
+    } while (true);
 }

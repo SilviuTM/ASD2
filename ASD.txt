@@ -4,6 +4,7 @@ camp1;camp2;
 11;12;
 21;22;
 name
-1
+2
 stun seed;
+baka mitai;
 24 hour cinderella;

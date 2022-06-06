@@ -4,4 +4,5 @@ int main()
 {
     CitireDate();
     MeniuPrincipal();
+    return 0;
 }
