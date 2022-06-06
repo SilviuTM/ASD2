@@ -371,22 +371,7 @@ void MeniuPrincipal()
         case 10:
             cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\n>>Iesire\n";
             break;
-            
         }
-
-        /*
-        "Creare tabel nou\n
-        Stergere tabel\n
-        Afisare tabel\n
-        Adaugare camp\n
-        Stergere camp\n
-        Adaugare obiect\n
-        Stergere obiect\n
-        Actualizare obiect\n
-        Cautare obiecte\n
-        Afisare baza de date\n
-        Iesire\n"
-        */
         fflush(stdin);
         c = getch();
         if (c == KEY_UP)
@@ -470,51 +455,6 @@ void MeniuPrincipal()
 
         ScriereDate();
     } while (1);
-}
-
-/// Creare e functia lui Michelle, o tinem ca referinta la adaugare tabel/camp/obiect
-void creare()
-{
-    /*
-    FILE *f;
-    int i,j=0;
-    f=fopen("asd.txt","w");
-    printf("introdu cate tabele doresti : ");
-    scanf("%d",&n);
-    while(n!=0)
-    {
-        j++;
-        fprintf(f,"Tabel %d\n",j);
-        printf("cate campuri doresti sa ai:");
-        scanf("%d",&m);
-        printf("Ce campuri doriti sa intoduceti: ");
-        for(i=1; i<=m; i++)
-        {
-            fflush(stdin);
-            gets(a[0].sub[i].nume_camp);
-            fprintf(f,"%s;",a[0].sub[i].nume_camp);
-        }
-        fprintf(f,"\n");
-        printf("Cate obiecte doriti sa intoduceti: ");
-        scanf("%d",&z);
-        for(int k=1; k<=z; k++)
-        {
-            printf("\nPentru obiectul %d:",k);
-            for(i=1; i<=m; i++)
-            {
-
-                printf("\nIntrodu pentru campul %d:",i);
-                fflush(stdin);
-                gets(a[k].sub[i].camp);
-                fprintf(f,"%s;",a[k].sub[i].camp);
-            }
-            fprintf(f,"\n");
-        }
-        fprintf(f,"\n");
-        n--;
-    }
-    fclose(f);
-    */
 }
 
 int main()
