@@ -7,4 +7,5 @@ name
 2
 stun seed;
 baka mitai;
-24 hour cinderella;
+24 hour cinderella
+baka mitai;

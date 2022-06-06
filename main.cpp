@@ -22,7 +22,7 @@ typedef struct tabel
     std::string nume;
     std::vector<std::string> campuri;         // camp1;camp2;camp3;...
     std::vector<std::vector<std::string>> obiecte; // obiecte[i] e obiectul pe care il vrei
-                                    // obiecte[i][j] e campul pe care il vrei de la obiecte[i]
+    // obiecte[i][j] e campul pe care il vrei de la obiecte[i]
 } Tabel;
 std::vector<Tabel> tabele;
 
@@ -112,7 +112,8 @@ void StergereObiect(/**/)
     }
 }
 
-void ActualizareObiect(/**/) {
+void ActualizareObiect(/**/)
+{
     std::string numele;
     std::cout << "Tablouri:\n";
     for (int i = 0; i < tabele.size(); i++)
@@ -147,22 +148,22 @@ void ActualizareObiect(/**/) {
             break;
     }
     for (int j = 0; j < tabele[i].obiecte.size(); j++)
+    {
+        if (j == linie)
         {
-            if (j == linie)
+            for(int k = 0; k < tabele[i].obiecte[j].size(); k++)
             {
-                for(int k = 0; k < tabele[i].obiecte[j].size(); k++)
+                if(k == coloana)
                 {
-                    if(k == coloana)
-                    {
-                        std::cout << "Introduceti noul obiect [" << tabele[i].obiecte[j][k] << "]: ";
-                        std::string nou;
-                        fflush(stdin);
-                        std::getline(std::cin, nou);
-                        tabele[i].obiecte[j][k] = nou;
-                    }
+                    std::cout << "Introduceti noul obiect [" << tabele[i].obiecte[j][k] << "]: ";
+                    std::string nou;
+                    fflush(stdin);
+                    std::getline(std::cin, nou);
+                    tabele[i].obiecte[j][k] = nou;
                 }
             }
         }
+    }
 }
 
 void CautareObiect(/**/)
@@ -191,8 +192,9 @@ void CautareObiect(/**/)
                 do
                 {
                     // afisare submeniu
-                    for(int temp = 0; temp < tabele[i].campuri.size(); temp++){
-                        if(temp == cursor) 
+                    for(int temp = 0; temp < tabele[i].campuri.size(); temp++)
+                    {
+                        if(temp == cursor)
                             std::cout << ">>";
                         std::cout << "Cautare dupa " << tabele[i].campuri[temp] << std::endl;
                     }
@@ -230,10 +232,10 @@ void CautareObiect(/**/)
                         break;
                 }
                 while(1);
-                
+
                 std::cout << "Input " << tabele[i].campuri[cursor] << "(input "-" to disable this criteria): ";
                 std::getline(std::cin, criterii[cursor]);
-                
+
                 /// verificare cate masini indeplinesc conditia
                 bool exists = false;
                 for(auto&obiect:tabele[i].obiecte)
@@ -243,7 +245,7 @@ void CautareObiect(/**/)
                     {
                         if(criterii[temp] != "-" && obiect[temp].find(criterii[temp]) == std::string::npos)
                             ok = false;
-                        
+
                         if(ok)
                             exists = true;
                     }
@@ -277,7 +279,8 @@ void CautareObiect(/**/)
 
                 std::cout << "Doriti sa mai modificati/adaugati criterii? [Y/N]: ";
                 std::getline(std::cin, alegere);
-            } while (alegere == "Y" || alegere == "y");
+            }
+            while (alegere == "Y" || alegere == "y");
         }
 }
 
@@ -445,7 +448,7 @@ void AfisareCampuri(/**/)
         if (numeTabel == i.nume)
         {
             for (auto &j : i.campuri)
-            std::cout << "- " << "\033[1;36m" << j << "\033[0m" << "\n";
+                std::cout << "- " << "\033[1;36m" << j << "\033[0m" << "\n";
         }
 }
 
@@ -478,7 +481,8 @@ void ModificareNumeCamp()
             for (int j = 0; j < tabele[i].campuri.size(); j++)
             {
                 if (tabele[i].campuri[j] == sterg)
-                    std::cout << "\nIntroduceti noul nume: "; std::getline(std::cin, tabele[i].campuri[j]);
+                    std::cout << "\nIntroduceti noul nume: ";
+                std::getline(std::cin, tabele[i].campuri[j]);
             }
         }
 }
@@ -494,13 +498,13 @@ void AfisareTabel()
         if (numeTabel == i.nume)
         {
             for (auto &j : i.campuri)
-            std::cout << "\033[1;36m" << j << "\033[0m" << " ";
+                std::cout << "\033[1;36m" << j << "\033[0m" << " ";
             std::cout << '\n';
 
             for (auto &k : i.obiecte)
             {
                 for (auto &l : k)
-                std::cout << "\033[1;35m" << l << "\033[0m" << " ";
+                    std::cout << "\033[1;35m" << l << "\033[0m" << " ";
                 std::cout << '\n';
             }
         }
@@ -683,7 +687,8 @@ void MeniuPrincipal()
             }
 
         ScriereDate();
-    } while (true);
+    }
+    while (true);
 }
 
 int main()
