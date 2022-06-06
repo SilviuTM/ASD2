@@ -4,6 +4,7 @@ camp1;camp2;
 11;12;
 21;22;
 name
-1
-stun seed;
-24 hour cinderella;
+2
+stun seed;what;
+baka mitai;whatthefuck;
+24 hour cinderella;isthis shit;
