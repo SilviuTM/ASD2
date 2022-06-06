@@ -3,8 +3,9 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include <string.h>
 #include <conio.h>
+#include <iomanip>
+#include <string.h>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
@@ -52,7 +53,6 @@ void StergereCamp(/**/)
     {
         if (tabele[i].nume == numele)
         {
-
             for (int j = 0; j < tabele[i].campuri.size(); j++)
             {
                 if (tabele[i].campuri[j] == sterg)
@@ -96,6 +96,7 @@ void StergereObiect(/**/)
     std::cout << "Introduceti linia obiectului pe care il vreti sa-l stergeti: ";
     int linie;
     std::cin >> linie;
+    linie -= 1;
     for (int i = 0; i < tabele.size(); i++)
     {
         if (tabele[i].nume == numele)
@@ -111,8 +112,58 @@ void StergereObiect(/**/)
     }
 }
 
-void ActualizareObiect(/**/) {}
-
+void ActualizareObiect(/**/) {
+    std::string numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        std::cout << tabele.at(i).nume << '\n';
+    }
+    std::cout << "Din ce tablou doresti sa actualizezi: ";
+    std::getline(std::cin, numele);
+    std::cout << "obiecte:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].obiecte.size(); j++)
+            {
+                for (int l = 0; l < tabele[i].obiecte[j].size(); l++)
+                {
+                    std::cout << tabele[i].obiecte[j][l] << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+    }
+    std::cout << "Introduceti linia si coloana obiectului pe care il vreti sa-l actualizezi: ";
+    int linie, coloana, i;
+    std::cin >> linie >> coloana;
+    linie -= 1;
+    coloana -= 1;
+    for (i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+            break;
+    }
+    for (int j = 0; j < tabele[i].obiecte.size(); j++)
+        {
+            if (j == linie)
+            {
+                for(int k = 0; k < tabele[i].obiecte[j].size(); k++)
+                {
+                    if(k == coloana)
+                    {
+                        std::cout << "Introduceti noul obiect [" << tabele[i].obiecte[j][k] << "]: ";
+                        std::string nou;
+                        fflush(stdin);
+                        std::getline(std::cin, nou);
+                        tabele[i].obiecte[j][k] = nou;
+                    }
+                }
+            }
+        }
+}
 void CautareObiect(/**/)
 {
     std::string numele;
@@ -342,7 +393,7 @@ void AdaugareCamp(/**/)
     std::cout << "Tablourile:\n";
     for (int i = 0; i < tabele.size(); i++)
     {
-        std::cout << tabele.at(i).nume << '\n';
+        std::cout << "\033[1;34m" << tabele.at(i).nume << "\033[0m" << '\n';
     }
     std::cout << "In ce tablou doresti sa adaugi campul din cele afisate de mai sus: ";
     std::getline(std::cin, numele);
@@ -354,7 +405,7 @@ void AdaugareCamp(/**/)
             for (int j = 0; j < tabele[i].obiecte.size(); j++)
             {
                 std::string adaug2;
-                std::cout << "Introdu informatia pentru campul adaugat al obiectului " << j << " ";
+                std::cout << "Introdu informatia pentru campul adaugat al obiectului " << "\033[1;36m" << j << "\033[0m" << " ";
                 std::getline(std::cin, adaug2);
                 tabele[i].obiecte[j].push_back(adaug2);
             }
@@ -401,19 +452,19 @@ void AfisareTabel()
     std::string numeTabel;
     std::cout << "Introduceti numele tabelului pe care doriti sa il afisati:" << '\n';
     for (auto &i : tabele)
-        std::cout << i.nume << '\n';
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
     std::getline(std::cin, numeTabel);
     for (auto &i : tabele)
         if (numeTabel == i.nume)
         {
             for (auto &j : i.campuri)
-                std::cout << j << " ";
+            std::cout << "\033[1;36m" << j << "\033[0m" << " ";
             std::cout << '\n';
 
             for (auto &k : i.obiecte)
             {
                 for (auto &l : k)
-                    std::cout << l << " ";
+                std::cout << "\033[1;35m" << l << "\033[0m" << " ";
                 std::cout << '\n';
             }
         }
@@ -446,13 +497,14 @@ void AfisareBazaDate()
 {
     for (auto &i : tabele)
     {
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
         for (auto &j : i.campuri)
-            std::cout << j << " ";
+            std::cout << "\033[1;36m" << std::setw(20) << j << std::setw(0) << "\033[0m" << " | ";
         std::cout << '\n';
         for (auto &k : i.obiecte)
         {
             for (auto &l : k)
-                std::cout << l << " ";
+                std::cout << "\033[1;35m" << std::setw(20) << l << std::setw(0) << "\033[0m" << " | ";
             std::cout << '\n';
         }
     }
@@ -462,65 +514,13 @@ void StergereTabel()
 {
     std::cout << "Introduceti numele tabelului pe care doriti sa il stergeti:" << '\n';
     for (auto &i : tabele)
-        std::cout << i.nume << '\n';
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
 
     std::string nume;
     std::getline(std::cin, nume);
     for (int i = 0; i < (int)tabele.size(); i++)
         if (tabele[i].nume == nume)
             tabele.erase(tabele.begin() + i);
-}
-
-void ActualizareObiect(/**/) {
-    std::string numele;
-    std::cout << "Tablouri:\n";
-    for (int i = 0; i < tabele.size(); i++)
-        std::cout << tabele.at(i).nume << '\n';
-
-    std::cout << "Din ce tablou doresti sa actualizezi: ";
-    std::getline(std::cin, numele);
-    std::cout << "obiecte:\n";
-    for (int i = 0; i < tabele.size(); i++)
-    {
-        if (tabele[i].nume == numele)
-        {
-            for (int j = 0; j < tabele[i].obiecte.size(); j++)
-            {
-                for (int l = 0; l < tabele[i].obiecte[j].size(); l++)
-                {
-                    std::cout << tabele[i].obiecte[j][l] << " ";
-                }
-                std::cout << std::endl;
-            }
-        }
-    }
-    std::cout << "Introduceti linia si coloana obiectului pe care il vreti sa-l actualizezi: ";
-    int linie, coloana, i;
-    std::cin >> linie >> coloana;
-    linie -= 1;
-    coloana -= 1;
-    for (i = 0; i < tabele.size(); i++)
-    {
-        if (tabele[i].nume == numele)
-            break;
-    }
-    for (int j = 0; j < tabele[i].obiecte.size(); j++)
-        {
-            if (j == linie)
-            {
-                for(int k = 0; k < tabele[i].obiecte[j].size(); k++)
-                {
-                    if(k == coloana)
-                    {
-                        std::cout << "Introduceti noul obiect [" << tabele[i].obiecte[j][k] << "]: ";
-                        std::string nou;
-                        std::fflush(stdin);
-                        std::getline(std::cin, nou);
-                        tabele[i].obiecte[j][k] = nou;
-                    }
-                }
-            }
-        }
 }
 
 void MeniuPrincipal()
@@ -585,61 +585,61 @@ void MeniuPrincipal()
             case 0:
                 CreareTabel();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 1:
                 StergereTabel();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 2:
                 AfisareTabel();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 3:
                 AdaugareCamp();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 4:
                 StergereCamp();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 5:
                 AdaugareObiect();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 6:
                 StergereObiect();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 7:
                 ActualizareObiect();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 8:
                 CautareObiect();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 9:
                 AfisareBazaDate();
                 std::fflush(stdin);
-                std::cout << "Apasa Enter pentru a continua!";
+                std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 10:
@@ -647,11 +647,12 @@ void MeniuPrincipal()
             }
 
         ScriereDate();
-    } while (1);
+    } while (true);
 }
 
 int main()
 {
     CitireDate();
     MeniuPrincipal();
+    return 0;
 }
