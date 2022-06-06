@@ -434,6 +434,21 @@ void AdaugareCamp(/**/)
     }
 }
 
+void AfisareCampuri(/**/)
+{
+    std::string numeTabel;
+    std::cout << "Introduceti numele tabelului al carui campuri doriti sa le afisati:" << '\n';
+    for (auto &i : tabele)
+        std::cout <<  "\033[1;34m" << i.nume << "\033[0m" << '\n';
+    std::getline(std::cin, numeTabel);
+    for (auto &i : tabele)
+        if (numeTabel == i.nume)
+        {
+            for (auto &j : i.campuri)
+            std::cout << "- " << "\033[1;36m" << j << "\033[0m" << "\n";
+        }
+}
+
 void ModificareNumeCamp()
 {
     std::string sterg, numele;
