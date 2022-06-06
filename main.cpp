@@ -336,40 +336,57 @@ void MeniuPrincipal()
     do
     {
         CLEAR();
-        if (cursor == 0)
-            cout << ">>";
-        cout << "Creare tabel nou" << endl;
-        if (cursor == 1)
-            cout << ">>";
-        cout << "Stergere tabel" << endl;
-        if (cursor == 2)
-            cout << ">>";
-        cout << "Afisare tabel" << endl;
-        if (cursor == 3)
-            cout << ">>";
-        cout << "Adaugare camp" << endl;
-        if (cursor == 4)
-            cout << ">>";
-        cout << "Stergere camp" << endl;
-        if (cursor == 5)
-            cout << ">>";
-        cout << "Adaugare obiect" << endl;
-        if (cursor == 6)
-            cout << ">>";
-        cout << "Stergere obiect" << endl;
-        if (cursor == 7)
-            cout << ">>";
-        cout << "Actualizare obiect" << endl;
-        if (cursor == 8)
-            cout << ">>";
-        cout << "Cautare obiecte" << endl;
-        if (cursor == 9)
-            cout << ">>";
-        cout << "Afisare baza de date" << endl;
-        if (cursor == 10)
-            cout << ">>";
-        cout << "Iesire" << endl;
+        switch(cursor)
+        {
+        case 0:
+            cout << ">>Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 1:
+            cout << "Creare tabel nou\n>>Stergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 2:
+            cout << "Creare tabel nou\nStergere tabel\n>>Afisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 3:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\n>>Adaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 4:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\n>>Stergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 5:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\n>>Adaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 6:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\n>>Stergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 7:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\n>>Actualizare obiect\nCautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 8:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\n>>Cautare obiecte\nAfisare baza de date\nIesire\n";
+            break;
+        case 9:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\n>>Afisare baza de date\nIesire\n";
+            break;
+        case 10:
+            cout << "Creare tabel nou\nStergere tabel\nAfisare tabel\nAdaugare camp\nStergere camp\nAdaugare obiect\nStergere obiect\nActualizare obiect\nCautare obiecte\nAfisare baza de date\n>>Iesire\n";
+            break;
+            
+        }
 
+        /*
+        "Creare tabel nou\n
+        Stergere tabel\n
+        Afisare tabel\n
+        Adaugare camp\n
+        Stergere camp\n
+        Adaugare obiect\n
+        Stergere obiect\n
+        Actualizare obiect\n
+        Cautare obiecte\n
+        Afisare baza de date\n
+        Iesire\n"
+        */
         fflush(stdin);
         c = getch();
         if (c == KEY_UP)
