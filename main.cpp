@@ -5,11 +5,10 @@
 #include <string>
 #include <conio.h>
 #include <iomanip>
+#include <string.h>
 
 #define KEY_UP 72
 #define KEY_DOWN 80
-#define KEY_LEFT 75
-#define KEY_RIGHT 77
 #define ENTER 13
 
 void CLEAR(void) // Clear screen regardles of host OS
@@ -27,11 +26,7 @@ typedef struct tabel
 } Tabel;
 std::vector<Tabel> tabele;
 
-// void CreareTabel(/**/){}
-// void StergereTabel(/**/){}
-// void AfisareTabel(/**/){}
-
-void StergereCamp(/*Stun Seed*/)
+void StergereCamp(/**/)
 {
     std::string sterg, numele;
     std::cout << "Tablouri:\n";
@@ -58,7 +53,6 @@ void StergereCamp(/*Stun Seed*/)
     {
         if (tabele[i].nume == numele)
         {
-
             for (int j = 0; j < tabele[i].campuri.size(); j++)
             {
                 if (tabele[i].campuri[j] == sterg)
@@ -73,8 +67,8 @@ void StergereCamp(/*Stun Seed*/)
         }
     }
 }
-// void AdaugareObiect(/**/){}
-void StergereObiect(/*delete this*/)
+
+void StergereObiect(/**/)
 {
     std::string numele;
     std::cout << "Tablouri:\n";
@@ -117,6 +111,7 @@ void StergereObiect(/*delete this*/)
         }
     }
 }
+
 void ActualizareObiect(/**/) {
     std::string numele;
     std::cout << "Tablouri:\n";
@@ -169,9 +164,123 @@ void ActualizareObiect(/**/) {
             }
         }
 }
-void CautareObiect(/**/) {}
-// void AfisareBazaDate(/**/){}
-// void CitireDate()
+=======
+void CautareObiect(/**/)
+{
+    std::string numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+        std::cout << tabele.at(i).nume << '\n';
+
+    std::cout << "In ce tablou doresti sa cauti: ";
+    std::getline(std::cin, numele);
+    std::cout << "obiecte:\n";
+    for (int i = 0; i < tabele.size(); i++)
+        if (tabele[i].nume == numele)
+        {
+            std::vector<std::string> criterii;
+            for (int temp = 0; temp < tabele[i].campuri.size(); temp++)
+                criterii.push_back("-");
+
+            int cursor = 0;
+            int c;
+            std::string alegere;
+            do
+            {
+                CLEAR();
+                do
+                {
+                    // afisare submeniu
+                    for(int temp = 0; temp < tabele[i].campuri.size(); temp++){
+                        if(temp == cursor) 
+                            std::cout << ">>";
+                        std::cout << "Cautare dupa " << tabele[i].campuri[temp] << std::endl;
+                    }
+
+                    /// verificare + afisare criterii
+                    int c_active = 0;
+                    for(int temp = 0; temp < tabele[i].campuri.size(); temp++)
+                        if(criterii[temp] != "-")
+                            c_active++;
+
+                    if(c_active == 0)
+                        std::cout << "Nu exista criterii active!" << std::endl;
+                    else
+                        std::cout << "Criterii active:" << std::endl;
+
+                    for(int temp = 0; temp < tabele[i].campuri.size(); temp++)
+                        if(criterii[temp] != "-")
+                            std::cout << tabele[i].campuri[temp] << ": " << criterii[temp] << std::endl;
+
+                    std::fflush(stdin);
+                    c = getch();
+                    if (c == KEY_UP)
+                    {
+                        cursor--;
+                        if (cursor == -1)
+                            cursor = tabele[i].campuri.size() - 1;
+                    }
+                    else if (c == KEY_DOWN)
+                    {
+                        cursor++;
+                        if (cursor == tabele[i].campuri.size())
+                            cursor = 0;
+                    }
+                    else if (c == ENTER)
+                        break;
+                }
+                while(1);
+                
+                std::cout << "Input " << tabele[i].campuri[cursor] << "(input "-" to disable this criteria): ";
+                std::getline(std::cin, criterii[cursor]);
+                
+                /// verificare cate masini indeplinesc conditia
+                bool exists = false;
+                for(auto&obiect:tabele[i].obiecte)
+                {
+                    bool ok = true;
+                    for(int temp = 0; temp < tabele[i].campuri.size(); temp++)
+                    {
+                        if(criterii[temp] != "-" && obiect[temp].find(criterii[temp]) == std::string::npos)
+                            ok = false;
+                        
+                        if(ok)
+                            exists = true;
+                    }
+
+                }
+
+                if (exists)
+                {
+                    for(auto&camp:tabele[i].campuri)
+                        std::cout << camp << ";";
+                    std::cout << std::endl;
+
+                    for(auto&obiect:tabele[i].obiecte)
+                    {
+                        bool ok = true;
+
+                        for(int temp = 0; temp < tabele[i].campuri.size(); temp++)
+                            if(criterii[temp] != "-" && obiect[temp].find(criterii[temp]) == std::string::npos)
+                                ok = false;
+
+                        if(ok)
+                        {
+                            for(auto&parametru:obiect)
+                                std::cout << parametru << ";";
+                            std::cout << std::endl;
+                        }
+                    }
+                }
+                else
+                    std::cout << "Nu s-au gasit intrari aferente criteriilor!" << std::endl;
+
+                std::cout << "Doriti sa mai modificati/adaugati criterii? [Y/N]: ";
+                std::getline(std::cin, alegere);
+            } while (alegere == "Y" || alegere == "y");
+        }
+}
+
 void CitireDate()
 {
     std::ifstream fin("ASD.txt");
@@ -276,7 +385,8 @@ void CreareTabel()
     }
     tabele.push_back(tabel);
 }
-void AdaugareCamp(/*wHAT*/)
+
+void AdaugareCamp(/**/)
 {
     std::string adaug, numele;
     std::cout << "Ce camp doresti sa adaugi: ";
@@ -302,6 +412,40 @@ void AdaugareCamp(/*wHAT*/)
             }
         }
     }
+}
+
+void ModificareNumeCamp()
+{
+    std::string sterg, numele;
+    std::cout << "Tablouri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        std::cout << tabele.at(i).nume << '\n';
+    }
+    std::cout << "Din ce tablou doresti sa modificati: ";
+    std::getline(std::cin, numele);
+    std::cout << "Campuri:\n";
+    for (int i = 0; i < tabele.size(); i++)
+    {
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].campuri.size(); j++)
+            {
+                std::cout << tabele[i].campuri[j] << std::endl;
+            }
+        }
+    }
+    std::cout << "Ce camp doriti sa modificati: ";
+    std::getline(std::cin, sterg);
+    for (int i = 0; i < tabele.size(); i++)
+        if (tabele[i].nume == numele)
+        {
+            for (int j = 0; j < tabele[i].campuri.size(); j++)
+            {
+                if (tabele[i].campuri[j] == sterg)
+                    std::cout << "\nIntroduceti noul nume: "; std::getline(std::cin, tabele[i].campuri[j]);
+            }
+        }
 }
 
 void AfisareTabel()
@@ -422,7 +566,7 @@ void MeniuPrincipal()
             std::cout << ">>";
         std::cout << "Iesire" << std::endl;
 
-        fflush(stdin);
+        std::fflush(stdin);
         c = getch();
         if (c == KEY_UP)
         {
@@ -441,61 +585,61 @@ void MeniuPrincipal()
             {
             case 0:
                 CreareTabel();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 1:
                 StergereTabel();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 2:
                 AfisareTabel();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 3:
                 AdaugareCamp();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 4:
                 StergereCamp();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 5:
                 AdaugareObiect();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 6:
                 StergereObiect();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 7:
                 ActualizareObiect();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 8:
                 CautareObiect();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
             case 9:
                 AfisareBazaDate();
-                fflush(stdin);
+                std::fflush(stdin);
                 std::cout << "Apasa " << "\033[1;32m" << "Enter" << "\033[0m" <<" pentru a continua!";
                 getch();
                 break;
