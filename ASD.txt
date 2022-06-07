@@ -5,6 +5,11 @@ camp1;camp2;
 21;22;
 name
 2
-stun seed;
+Machinegun Kiss;
 baka mitai;
 24 hour cinderella;
+Persoane
+2
+Nume;Prenume;Varsta;
+Ion;Gheorghita;15;
+Mihai;Vlad;21;
